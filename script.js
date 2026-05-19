@@ -6,9 +6,8 @@ themeToggle.addEventListener('click', () => {
     
     if (currentTheme === 'light' || !currentTheme) {
         newTheme = 'dark';
-        themeToggle.textContent = 'Világos mód';
     } else {
-        themeToggle.textContent = 'Sötét mód';
+        newTheme = 'light';
     }
     
     document.documentElement.setAttribute('data-theme', newTheme);
