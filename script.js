@@ -23,62 +23,35 @@ function generatePalette(colorStart, colorEnd, steps) {
     return palette;
 }
 
-function displayPalette(colors, themeName) {
-    let container = document.createElement('div');
-    container.style.margin = '20px';
-    container.style.padding = '20px';
-    container.style.fontFamily = 'sans-serif';
-    container.style.backgroundColor = '#f0f0f0';
-    container.style.borderRadius = '8px';
+const btn = document.getElementById('themeToggle');
+const paletteDisplay = document.getElementById('paletteDisplay');
 
-    let title = document.createElement('h3');
-    title.innerText = themeName;
-    title.style.color = '#333';
-    container.appendChild(title);
+const lightTheme = { main: "#F8FAFC", accent: "#2D8B8E" };
+const darkTheme = { main: "#0F172A", accent: "#5ECCD0" };
 
-    let paletteDiv = document.createElement('div');
-    paletteDiv.style.display = 'flex';
-    paletteDiv.style.gap = '10px';
-
-    for (let i = 0; i < colors.length; i++) {
-        let colorBox = document.createElement('div');
-        colorBox.style.width = '80px';
-        colorBox.style.height = '80px';
-        colorBox.style.backgroundColor = colors[i];
-        colorBox.style.border = '1px solid #ccc';
-        colorBox.style.borderRadius = '4px';
-        colorBox.style.display = 'flex';
-        colorBox.style.alignItems = 'center';
-        colorBox.style.justifyContent = 'center';
-        colorBox.style.fontSize = '12px';
-        colorBox.style.fontWeight = 'bold';
-        colorBox.style.color = i > 3 ? '#FFFFFF' : '#000000';
-        colorBox.innerText = colors[i];
-        paletteDiv.appendChild(colorBox);
-    }
-
-    container.appendChild(paletteDiv);
-    document.body.appendChild(container);
+function renderPalette(colors) {
+    paletteDisplay.innerHTML = '';
+    colors.forEach((color, index) => {
+        let box = document.createElement('div');
+        box.className = 'color-box';
+        box.style.backgroundColor = color;
+        box.style.color = index > 3 ? '#FFFFFF' : '#000000';
+        box.innerText = color;
+        paletteDisplay.appendChild(box);
+    });
 }
 
-const lightTheme = {
-    mainBackground: "#F8FAFC",
-    surfaceBackground: "#FFFFFF",
-    primaryText: "#1E293B",
-    secondaryText: "#64748B",
-    primaryAccent: "#2D8B8E"
-};
+renderPalette(generatePalette(lightTheme.main, lightTheme.accent, 7));
 
-const darkTheme = {
-    mainBackground: "#0F172A",
-    surfaceBackground: "#1E293B",
-    primaryText: "#E2E8F0",
-    secondaryText: "#94A3B8",
-    primaryAccent: "#5ECCD0"
-};
-
-let resultColorsLight = generatePalette(lightTheme.mainBackground, lightTheme.primaryAccent, 7);
-let resultColorsDark = generatePalette(darkTheme.mainBackground, darkTheme.primaryAccent, 7);
-
-displayPalette(resultColorsLight, 'Light Theme Palette');
-displayPalette(resultColorsDark, 'Dark Theme Palette');
+btn.addEventListener('click', () => {
+    const isDark = document.body.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+        document.body.removeAttribute('data-theme');
+        btn.innerText = 'Sötét mód bekapcsolása';
+        renderPalette(generatePalette(lightTheme.main, lightTheme.accent, 7));
+    } else {
+        document.body.setAttribute('data-theme', 'dark');
+        btn.innerText = 'Világos mód bekapcsolása';
+        renderPalette(generatePalette(darkTheme.main, darkTheme.accent, 7));
+    }
+});
