@@ -23,8 +23,33 @@ function generatePalette(colorStart, colorEnd, steps) {
     return palette;
 }
 
-let resultColorsLight = generatePalette("#F8FAFC", "#2D8B8E", 7);
-let resultColorsDark = generatePalette("#0F172A", "#5ECCD0", 7);
+const btn = document.getElementById('theme-toggle');
+const paletteDisplay = document.getElementById('paletteDisplay');
 
-console.log(resultColorsLight);
-console.log(resultColorsDark);
+const lightTheme = { main: "#F8FAFC", accent: "#2D8B8E" };
+const darkTheme = { main: "#0F172A", accent: "#5ECCD0" };
+
+function renderPalette(colors) {
+    paletteDisplay.innerHTML = '';
+    colors.forEach((color, index) => {
+        let box = document.createElement('div');
+        box.className = 'color-box';
+        box.style.backgroundColor = color;
+        box.style.color = index > 3 ? '#FFFFFF' : '#000000';
+        box.innerText = color;
+        paletteDisplay.appendChild(box);
+    });
+}
+
+renderPalette(generatePalette(lightTheme.main, lightTheme.accent, 7));
+
+btn.addEventListener('click', () => {
+    const isDark = document.body.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+        document.body.removeAttribute('data-theme');
+        renderPalette(generatePalette(lightTheme.main, lightTheme.accent, 7));
+    } else {
+        document.body.setAttribute('data-theme', 'dark');
+        renderPalette(generatePalette(darkTheme.main, darkTheme.accent, 7));
+    }
+});
