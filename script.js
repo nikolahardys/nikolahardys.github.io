@@ -23,6 +23,44 @@ function generatePalette(colorStart, colorEnd, steps) {
     return palette;
 }
 
+function displayPalette(colors, themeName) {
+    let container = document.createElement('div');
+    container.style.margin = '20px';
+    container.style.padding = '20px';
+    container.style.fontFamily = 'sans-serif';
+    container.style.backgroundColor = '#f0f0f0';
+    container.style.borderRadius = '8px';
+
+    let title = document.createElement('h3');
+    title.innerText = themeName;
+    title.style.color = '#333';
+    container.appendChild(title);
+
+    let paletteDiv = document.createElement('div');
+    paletteDiv.style.display = 'flex';
+    paletteDiv.style.gap = '10px';
+
+    for (let i = 0; i < colors.length; i++) {
+        let colorBox = document.createElement('div');
+        colorBox.style.width = '80px';
+        colorBox.style.height = '80px';
+        colorBox.style.backgroundColor = colors[i];
+        colorBox.style.border = '1px solid #ccc';
+        colorBox.style.borderRadius = '4px';
+        colorBox.style.display = 'flex';
+        colorBox.style.alignItems = 'center';
+        colorBox.style.justifyContent = 'center';
+        colorBox.style.fontSize = '12px';
+        colorBox.style.fontWeight = 'bold';
+        colorBox.style.color = i > 3 ? '#FFFFFF' : '#000000';
+        colorBox.innerText = colors[i];
+        paletteDiv.appendChild(colorBox);
+    }
+
+    container.appendChild(paletteDiv);
+    document.body.appendChild(container);
+}
+
 const lightTheme = {
     mainBackground: "#F8FAFC",
     surfaceBackground: "#FFFFFF",
@@ -42,5 +80,5 @@ const darkTheme = {
 let resultColorsLight = generatePalette(lightTheme.mainBackground, lightTheme.primaryAccent, 7);
 let resultColorsDark = generatePalette(darkTheme.mainBackground, darkTheme.primaryAccent, 7);
 
-console.log(resultColorsLight);
-console.log(resultColorsDark);
+displayPalette(resultColorsLight, 'Light Theme Palette');
+displayPalette(resultColorsDark, 'Dark Theme Palette');
