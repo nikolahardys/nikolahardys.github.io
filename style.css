@@ -19,12 +19,36 @@ body {
     transition: background-color 0.3s, color 0.3s;
     padding: 40px;
 }
+header {
+    margin-bottom: 20px;
+}
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--bg-card);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+.nav-links {
+    display: flex;
+    gap: 15px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.nav-links a {
+    color: var(--text-main);
+    text-decoration: none;
+}
 .card {
     background-color: var(--bg-card);
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     margin-top: 20px;
+    margin-bottom: 20px;
 }
 button {
     background-color: var(--accent);
@@ -52,4 +76,10 @@ button {
     font-size: 13px;
     font-weight: bold;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.content-section {
+    background-color: var(--bg-card);
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
 }
